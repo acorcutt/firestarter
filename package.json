@@ -34,6 +34,14 @@
   ],
   "author": "Anthony Corcutt",
   "license": "MIT",
+  "homepage": "https://github.com/acorcutt/firestarter",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/acorcutt/firestarter.git"
+  },
+  "bugs": {
+    "url": "https://github.com/acorcutt/firestarter/issues"
+  },
   "devDependencies": {
     "@parcel/core": ">=2.6.0 <3.0.0",
     "@parcel/packager-ts": "2.6.0",

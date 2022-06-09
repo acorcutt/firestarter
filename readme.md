@@ -16,6 +16,24 @@ React components, hooks and other helpers I use to quickly get started with next
 - Snapshot Hooks
 - Local Store
 
+## Install
+
+```
+pnpm add @acorcutt/firestarter
+```
+
+```
+yarn add @acorcutt/firestarter
+```
+
+```
+npm i @acorcutt/firestarter
+```
+
+## Usage
+
+- Check the included next.js app
+
 ## Develop
 
 To run the app setup your `.firebaserc` and `.env.local` from your firebase project settings.
