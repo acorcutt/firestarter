@@ -1,11 +1,18 @@
-import { ReactNode, FormEventHandler } from "react";
-import { Auth, User } from "firebase/auth";
-import { Firestore, DocumentReference, DocumentSnapshot, SnapshotListenOptions, Query, QuerySnapshot } from "firebase/firestore";
-import { StoreType } from "store2";
 import { FirebaseApp } from "firebase/app";
-import { Functions } from "firebase/functions";
+import { Firestore, DocumentReference, DocumentSnapshot, SnapshotListenOptions, Query, QuerySnapshot } from "firebase/firestore";
+import { Auth, User } from "firebase/auth";
 import { FirebaseStorage } from "firebase/storage";
+import { Functions } from "firebase/functions";
+import { ReactNode, FormEventHandler } from "react";
+import { StoreType } from "store2";
 import cx from "clsx";
+export function getFirebase(config: any, emulators?: any): {
+    app: FirebaseApp;
+    firestore: Firestore;
+    auth: Auth;
+    storage: FirebaseStorage;
+    functions: Functions;
+};
 type FirestarterAuthSettings = {
     loginPath: string;
     logoutPath: string;

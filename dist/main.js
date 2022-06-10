@@ -1,13 +1,16 @@
+var $b5R2n$firebaseapp = require("firebase/app");
+var $b5R2n$firebasefirestore = require("firebase/firestore");
+var $b5R2n$firebaseauth = require("firebase/auth");
+var $b5R2n$firebasestorage = require("firebase/storage");
+var $b5R2n$firebasefunctions = require("firebase/functions");
 var $b5R2n$reactjsxruntime = require("react/jsx-runtime");
 var $b5R2n$mitt = require("mitt");
 var $b5R2n$react = require("react");
-var $b5R2n$firebaseauth = require("firebase/auth");
 var $b5R2n$fastdeepequales6react = require("fast-deep-equal/es6/react");
 var $b5R2n$store2 = require("store2");
 var $b5R2n$clsx = require("clsx");
 var $b5R2n$reacthookform = require("react-hook-form");
 var $b5R2n$nextrouter = require("next/router");
-var $b5R2n$firebasefirestore = require("firebase/firestore");
 
 function $parcel$export(e, n, v, s) {
   Object.defineProperty(e, n, {get: v, set: s, enumerable: true, configurable: true});
@@ -18,6 +21,7 @@ function $parcel$interopDefault(a) {
 
 $parcel$export(module.exports, "Firestarter", () => $57ac30262d77fa27$export$2e2bcd8739ae039);
 $parcel$export(module.exports, "cx", () => $0645f71fc70da221$export$2e2bcd8739ae039);
+$parcel$export(module.exports, "getFirebase", () => $04f312a4f905e9c6$export$7a667d08ed65fa47);
 $parcel$export(module.exports, "StoreProvider", () => $1519c5e2f74ac89b$export$3b5c74f3f11c675d);
 $parcel$export(module.exports, "useStore", () => $1519c5e2f74ac89b$export$6ccbb43953eebf8);
 $parcel$export(module.exports, "useLocalState", () => $1519c5e2f74ac89b$export$e4a07dee2868ff9d);
@@ -47,6 +51,47 @@ $parcel$export(module.exports, "useFirestore", () => $fa317698e9a11cea$export$40
 $parcel$export(module.exports, "useDocumentSnapshot", () => $d63f6c641f7e60ab$export$2e2bcd8739ae039);
 $parcel$export(module.exports, "useQuerySnapshot", () => $6d4e46e5e278cd03$export$2e2bcd8739ae039);
 $parcel$export(module.exports, "useMemoState", () => $a7b5de690a5e460e$export$2e2bcd8739ae039);
+
+
+
+
+
+let $04f312a4f905e9c6$var$app, $04f312a4f905e9c6$var$firestore, $04f312a4f905e9c6$var$auth, $04f312a4f905e9c6$var$storage, $04f312a4f905e9c6$var$functions;
+function $04f312a4f905e9c6$export$7a667d08ed65fa47(config, emulators) {
+    try {
+        // This will throw an error if app is not initialized
+        $04f312a4f905e9c6$var$app = (0, $b5R2n$firebaseapp.getApp)(config.projectId || "firestarter");
+        $04f312a4f905e9c6$var$firestore = (0, $b5R2n$firebasefirestore.getFirestore)($04f312a4f905e9c6$var$app);
+        $04f312a4f905e9c6$var$auth = (0, $b5R2n$firebaseauth.getAuth)($04f312a4f905e9c6$var$app);
+        $04f312a4f905e9c6$var$storage = (0, $b5R2n$firebasestorage.getStorage)($04f312a4f905e9c6$var$app);
+        $04f312a4f905e9c6$var$functions = (0, $b5R2n$firebasefunctions.getFunctions)($04f312a4f905e9c6$var$app);
+        console.log("Firebase Connected");
+    } catch (_) {
+        // Initialize Firebase once to prevent errors
+        $04f312a4f905e9c6$var$app = (0, $b5R2n$firebaseapp.initializeApp)(config, config.projectId || "firestarter");
+        $04f312a4f905e9c6$var$firestore = (0, $b5R2n$firebasefirestore.getFirestore)($04f312a4f905e9c6$var$app);
+        $04f312a4f905e9c6$var$auth = (0, $b5R2n$firebaseauth.getAuth)($04f312a4f905e9c6$var$app);
+        $04f312a4f905e9c6$var$storage = (0, $b5R2n$firebasestorage.getStorage)($04f312a4f905e9c6$var$app);
+        $04f312a4f905e9c6$var$functions = (0, $b5R2n$firebasefunctions.getFunctions)($04f312a4f905e9c6$var$app);
+        console.log("Firebase Initialized");
+        if (emulators) {
+            emulators.firestore && (0, $b5R2n$firebasefirestore.connectFirestoreEmulator)($04f312a4f905e9c6$var$firestore, emulators.firestore.host || "localhost", emulators.firestore.port || 8080);
+            emulators.auth && (0, $b5R2n$firebaseauth.connectAuthEmulator)($04f312a4f905e9c6$var$auth, `http://${emulators.auth.host || "localhost"}:${emulators.auth.port || 9099}`);
+            emulators.storage && (0, $b5R2n$firebasestorage.connectStorageEmulator)($04f312a4f905e9c6$var$storage, emulators.storage.host || "localhost", emulators.storage.port || 9199);
+            emulators.functions && (0, $b5R2n$firebasefunctions.connectFunctionsEmulator)($04f312a4f905e9c6$var$functions, emulators.functions.host || "localhost", emulators.functions.port || 5001);
+            console.log("Firebase Emulation is enabled");
+        }
+    }
+    return {
+        app: $04f312a4f905e9c6$var$app,
+        firestore: $04f312a4f905e9c6$var$firestore,
+        auth: $04f312a4f905e9c6$var$auth,
+        storage: $04f312a4f905e9c6$var$storage,
+        functions: $04f312a4f905e9c6$var$functions
+    };
+}
+
+
 
 
 
@@ -327,6 +372,7 @@ function $57ac30262d77fa27$export$2e2bcd8739ae039({ defaultStore: defaultStore ,
 
 
 var $0645f71fc70da221$export$2e2bcd8739ae039 = (0, ($parcel$interopDefault($b5R2n$clsx)));
+
 
 
 

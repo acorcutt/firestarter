@@ -1,13 +1,57 @@
+import {getApp as $5gcJ2$getApp, initializeApp as $5gcJ2$initializeApp} from "firebase/app";
+import {getFirestore as $5gcJ2$getFirestore, connectFirestoreEmulator as $5gcJ2$connectFirestoreEmulator, refEqual as $5gcJ2$refEqual, onSnapshot as $5gcJ2$onSnapshot, queryEqual as $5gcJ2$queryEqual} from "firebase/firestore";
+import {getAuth as $5gcJ2$getAuth, connectAuthEmulator as $5gcJ2$connectAuthEmulator, onAuthStateChanged as $5gcJ2$onAuthStateChanged, updateProfile as $5gcJ2$updateProfile, sendSignInLinkToEmail as $5gcJ2$sendSignInLinkToEmail, signOut as $5gcJ2$signOut, signInWithEmailLink as $5gcJ2$signInWithEmailLink, isSignInWithEmailLink as $5gcJ2$isSignInWithEmailLink} from "firebase/auth";
+import {getStorage as $5gcJ2$getStorage, connectStorageEmulator as $5gcJ2$connectStorageEmulator} from "firebase/storage";
+import {getFunctions as $5gcJ2$getFunctions, connectFunctionsEmulator as $5gcJ2$connectFunctionsEmulator} from "firebase/functions";
 import {jsx as $5gcJ2$jsx} from "react/jsx-runtime";
 import $5gcJ2$mitt from "mitt";
 import {createContext as $5gcJ2$createContext, useState as $5gcJ2$useState, useEffect as $5gcJ2$useEffect, useContext as $5gcJ2$useContext, useCallback as $5gcJ2$useCallback} from "react";
-import {onAuthStateChanged as $5gcJ2$onAuthStateChanged, updateProfile as $5gcJ2$updateProfile, sendSignInLinkToEmail as $5gcJ2$sendSignInLinkToEmail, signOut as $5gcJ2$signOut, signInWithEmailLink as $5gcJ2$signInWithEmailLink, isSignInWithEmailLink as $5gcJ2$isSignInWithEmailLink} from "firebase/auth";
 import $5gcJ2$fastdeepequales6react from "fast-deep-equal/es6/react";
 import $5gcJ2$store2 from "store2";
 import $5gcJ2$clsx from "clsx";
 import {useForm as $5gcJ2$useForm} from "react-hook-form";
 import {useRouter as $5gcJ2$useRouter} from "next/router";
-import {refEqual as $5gcJ2$refEqual, onSnapshot as $5gcJ2$onSnapshot, queryEqual as $5gcJ2$queryEqual} from "firebase/firestore";
+
+
+
+
+
+
+let $4ff9f036ba7c16cf$var$app, $4ff9f036ba7c16cf$var$firestore, $4ff9f036ba7c16cf$var$auth, $4ff9f036ba7c16cf$var$storage, $4ff9f036ba7c16cf$var$functions;
+function $4ff9f036ba7c16cf$export$7a667d08ed65fa47(config, emulators) {
+    try {
+        // This will throw an error if app is not initialized
+        $4ff9f036ba7c16cf$var$app = (0, $5gcJ2$getApp)(config.projectId || "firestarter");
+        $4ff9f036ba7c16cf$var$firestore = (0, $5gcJ2$getFirestore)($4ff9f036ba7c16cf$var$app);
+        $4ff9f036ba7c16cf$var$auth = (0, $5gcJ2$getAuth)($4ff9f036ba7c16cf$var$app);
+        $4ff9f036ba7c16cf$var$storage = (0, $5gcJ2$getStorage)($4ff9f036ba7c16cf$var$app);
+        $4ff9f036ba7c16cf$var$functions = (0, $5gcJ2$getFunctions)($4ff9f036ba7c16cf$var$app);
+        console.log("Firebase Connected");
+    } catch (_) {
+        // Initialize Firebase once to prevent errors
+        $4ff9f036ba7c16cf$var$app = (0, $5gcJ2$initializeApp)(config, config.projectId || "firestarter");
+        $4ff9f036ba7c16cf$var$firestore = (0, $5gcJ2$getFirestore)($4ff9f036ba7c16cf$var$app);
+        $4ff9f036ba7c16cf$var$auth = (0, $5gcJ2$getAuth)($4ff9f036ba7c16cf$var$app);
+        $4ff9f036ba7c16cf$var$storage = (0, $5gcJ2$getStorage)($4ff9f036ba7c16cf$var$app);
+        $4ff9f036ba7c16cf$var$functions = (0, $5gcJ2$getFunctions)($4ff9f036ba7c16cf$var$app);
+        console.log("Firebase Initialized");
+        if (emulators) {
+            emulators.firestore && (0, $5gcJ2$connectFirestoreEmulator)($4ff9f036ba7c16cf$var$firestore, emulators.firestore.host || "localhost", emulators.firestore.port || 8080);
+            emulators.auth && (0, $5gcJ2$connectAuthEmulator)($4ff9f036ba7c16cf$var$auth, `http://${emulators.auth.host || "localhost"}:${emulators.auth.port || 9099}`);
+            emulators.storage && (0, $5gcJ2$connectStorageEmulator)($4ff9f036ba7c16cf$var$storage, emulators.storage.host || "localhost", emulators.storage.port || 9199);
+            emulators.functions && (0, $5gcJ2$connectFunctionsEmulator)($4ff9f036ba7c16cf$var$functions, emulators.functions.host || "localhost", emulators.functions.port || 5001);
+            console.log("Firebase Emulation is enabled");
+        }
+    }
+    return {
+        app: $4ff9f036ba7c16cf$var$app,
+        firestore: $4ff9f036ba7c16cf$var$firestore,
+        auth: $4ff9f036ba7c16cf$var$auth,
+        storage: $4ff9f036ba7c16cf$var$storage,
+        functions: $4ff9f036ba7c16cf$var$functions
+    };
+}
+
 
 
 
@@ -299,6 +343,7 @@ var $1b6c2ba4e872a6ac$export$2e2bcd8739ae039 = (0, $5gcJ2$clsx);
 
 
 
+
 let $77d0a25a4f082d11$export$df5bf2b361a69287;
 (function(FirestarterLoginStatus1) {
     FirestarterLoginStatus1[FirestarterLoginStatus1["Connecting"] = 0] = "Connecting";
@@ -561,5 +606,5 @@ function $6112b8ed9e42f083$export$2e2bcd8739ae039(query, options) {
 
 
 
-export {$c7abf29a84d20538$export$2e2bcd8739ae039 as Firestarter, $1b6c2ba4e872a6ac$export$2e2bcd8739ae039 as cx, $b84ea69f5e5063ac$export$3b5c74f3f11c675d as StoreProvider, $b84ea69f5e5063ac$export$6ccbb43953eebf8 as useStore, $b84ea69f5e5063ac$export$e4a07dee2868ff9d as useLocalState, $b84ea69f5e5063ac$export$d2bdb7c20492cc5 as usePageState, $b84ea69f5e5063ac$export$8898ce2744bba29f as useSessionState, $b84ea69f5e5063ac$export$fcec27b699cbe3cb as useLocalSetter, $b84ea69f5e5063ac$export$ab3ddbfe219eeaf8 as usePageSetter, $b84ea69f5e5063ac$export$482f60fe14e43604 as useSessionSetter, $b84ea69f5e5063ac$export$b5cd09ad5fb9a81e as useLocalGetter, $b84ea69f5e5063ac$export$6b88622ecf007444 as usePageGetter, $b84ea69f5e5063ac$export$323ab897a042a85 as useSessionGetter, $b84ea69f5e5063ac$export$3488efe90084f105 as useLocalSet, $b84ea69f5e5063ac$export$39eefab393c8c445 as usePageSet, $b84ea69f5e5063ac$export$d9199f9e57bfb22f as useSessionSet, $b84ea69f5e5063ac$export$24aa5f1d0f5ed33b as useLocalGet, $b84ea69f5e5063ac$export$7ecb794d2aec60b9 as usePageGet, $b84ea69f5e5063ac$export$54eeb7ba9d39730c as useSessionGet, $b84ea69f5e5063ac$export$3aaf8e8470cff8cf as storeEmitters, $31e53375a4b61e5a$export$87091915187a1a85 as AuthProvider, $31e53375a4b61e5a$export$1d39dc5b47e56ff0 as useAuth, $31e53375a4b61e5a$export$c92c4ec7a2418617 as updateUserProfile, $77d0a25a4f082d11$export$d4e22f05f73ea56b as useLogin, $74faa060192d7163$export$9a5b97a7aba1a585 as useLogout, $1272af629abba37c$export$9683d0cca3dc3e98 as useVerify, $2a05438d4a88cbc9$export$a5904d1e05b34e56 as FirestoreProvider, $2a05438d4a88cbc9$export$4062511abc38b7a0 as useFirestore, $3700b8c4230d3bcf$export$2e2bcd8739ae039 as useDocumentSnapshot, $6112b8ed9e42f083$export$2e2bcd8739ae039 as useQuerySnapshot, $2f32de2c34a357fd$export$2e2bcd8739ae039 as useMemoState};
+export {$c7abf29a84d20538$export$2e2bcd8739ae039 as Firestarter, $1b6c2ba4e872a6ac$export$2e2bcd8739ae039 as cx, $4ff9f036ba7c16cf$export$7a667d08ed65fa47 as getFirebase, $b84ea69f5e5063ac$export$3b5c74f3f11c675d as StoreProvider, $b84ea69f5e5063ac$export$6ccbb43953eebf8 as useStore, $b84ea69f5e5063ac$export$e4a07dee2868ff9d as useLocalState, $b84ea69f5e5063ac$export$d2bdb7c20492cc5 as usePageState, $b84ea69f5e5063ac$export$8898ce2744bba29f as useSessionState, $b84ea69f5e5063ac$export$fcec27b699cbe3cb as useLocalSetter, $b84ea69f5e5063ac$export$ab3ddbfe219eeaf8 as usePageSetter, $b84ea69f5e5063ac$export$482f60fe14e43604 as useSessionSetter, $b84ea69f5e5063ac$export$b5cd09ad5fb9a81e as useLocalGetter, $b84ea69f5e5063ac$export$6b88622ecf007444 as usePageGetter, $b84ea69f5e5063ac$export$323ab897a042a85 as useSessionGetter, $b84ea69f5e5063ac$export$3488efe90084f105 as useLocalSet, $b84ea69f5e5063ac$export$39eefab393c8c445 as usePageSet, $b84ea69f5e5063ac$export$d9199f9e57bfb22f as useSessionSet, $b84ea69f5e5063ac$export$24aa5f1d0f5ed33b as useLocalGet, $b84ea69f5e5063ac$export$7ecb794d2aec60b9 as usePageGet, $b84ea69f5e5063ac$export$54eeb7ba9d39730c as useSessionGet, $b84ea69f5e5063ac$export$3aaf8e8470cff8cf as storeEmitters, $31e53375a4b61e5a$export$87091915187a1a85 as AuthProvider, $31e53375a4b61e5a$export$1d39dc5b47e56ff0 as useAuth, $31e53375a4b61e5a$export$c92c4ec7a2418617 as updateUserProfile, $77d0a25a4f082d11$export$d4e22f05f73ea56b as useLogin, $74faa060192d7163$export$9a5b97a7aba1a585 as useLogout, $1272af629abba37c$export$9683d0cca3dc3e98 as useVerify, $2a05438d4a88cbc9$export$a5904d1e05b34e56 as FirestoreProvider, $2a05438d4a88cbc9$export$4062511abc38b7a0 as useFirestore, $3700b8c4230d3bcf$export$2e2bcd8739ae039 as useDocumentSnapshot, $6112b8ed9e42f083$export$2e2bcd8739ae039 as useQuerySnapshot, $2f32de2c34a357fd$export$2e2bcd8739ae039 as useMemoState};
 //# sourceMappingURL=module.js.map
