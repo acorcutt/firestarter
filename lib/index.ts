@@ -31,9 +31,9 @@ export {
 } from './Store';
 
 export { AuthProvider, useAuth, updateUserProfile } from './Auth';
-export { useLogin } from './auth/login';
-export { useLogout } from './auth/logout';
-export { useVerify } from './auth/verify';
+export { useLogin, FirestarterLoginStatus } from './auth/login';
+export { useLogout, FirestarterLogoutStatus } from './auth/logout';
+export { useVerify, FirestarterVerifyStatus } from './auth/verify';
 
 export { FirestoreProvider, useFirestore } from './Firestore';
 

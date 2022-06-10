@@ -98,7 +98,7 @@ export function getFirebase(config: any, emulators?: any): {
     storage: FirebaseStorage;
     functions: Functions;
 };
-enum FirestarterLoginStatus {
+export enum FirestarterLoginStatus {
     Connecting = 0,
     Inputing = 1,
     Submitting = 2,
@@ -115,12 +115,12 @@ type FirestarterLoginState = {
     stopWaiting: () => void;
 };
 export function useLogin(): FirestarterLoginState;
-enum FirestarterLogoutStatus {
+export enum FirestarterLogoutStatus {
     Connecting = 0,
     Redirecting = 1
 }
 export function useLogout(): FirestarterLogoutStatus;
-enum FirestarterVerifyStatus {
+export enum FirestarterVerifyStatus {
     Connecting = 0,
     Inputing = 1,
     Submitting = 2,
