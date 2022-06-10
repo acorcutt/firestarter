@@ -10,7 +10,8 @@
     "node": ">= 14"
   },
   "files": [
-    "/dist"
+    "/dist",
+    "/lib"
   ],
   "targets": {
     "default": {
