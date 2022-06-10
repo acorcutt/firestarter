@@ -3,13 +3,11 @@ var $b5R2n$mitt = require("mitt");
 var $b5R2n$react = require("react");
 var $b5R2n$firebaseauth = require("firebase/auth");
 var $b5R2n$fastdeepequales6react = require("fast-deep-equal/es6/react");
-var $b5R2n$firebaseapp = require("firebase/app");
-var $b5R2n$firebasefirestore = require("firebase/firestore");
-var $b5R2n$firebasestorage = require("firebase/storage");
 var $b5R2n$store2 = require("store2");
 var $b5R2n$clsx = require("clsx");
 var $b5R2n$reacthookform = require("react-hook-form");
 var $b5R2n$nextrouter = require("next/router");
+var $b5R2n$firebasefirestore = require("firebase/firestore");
 
 function $parcel$export(e, n, v, s) {
   Object.defineProperty(e, n, {get: v, set: s, enumerable: true, configurable: true});
@@ -133,51 +131,6 @@ function $60703c602d9dcdb8$export$c92c4ec7a2418617(user, profile) {
 
 
 
-
-
-// Firebase configuration
-const $04f312a4f905e9c6$var$firebaseConfig = {
-    apiKey: process.env.NEXT_PUBLIC_FIREBASE_API,
-    authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH,
-    projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT,
-    storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE,
-    messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_SENDER,
-    appId: process.env.NEXT_PUBLIC_FIREBASE_APP
-};
-let $04f312a4f905e9c6$var$firebase, $04f312a4f905e9c6$var$firestore, $04f312a4f905e9c6$var$auth, $04f312a4f905e9c6$var$storage;
-function $04f312a4f905e9c6$export$7a667d08ed65fa47(settings) {
-    try {
-        // This will throw an error if app is not initialized
-        $04f312a4f905e9c6$var$firebase = (0, $b5R2n$firebaseapp.getApp)(process.env.NEXT_PUBLIC_FIREBASE_PROJECT || "firestarter");
-        $04f312a4f905e9c6$var$firestore = (0, $b5R2n$firebasefirestore.getFirestore)($04f312a4f905e9c6$var$firebase);
-        $04f312a4f905e9c6$var$auth = (0, $b5R2n$firebaseauth.getAuth)($04f312a4f905e9c6$var$firebase);
-        $04f312a4f905e9c6$var$storage = (0, $b5R2n$firebasestorage.getStorage)($04f312a4f905e9c6$var$firebase);
-        console.log("Firebase Connected");
-    } catch (_) {
-        // Initialize Firebase once to prevent errors
-        $04f312a4f905e9c6$var$firebase = (0, $b5R2n$firebaseapp.initializeApp)($04f312a4f905e9c6$var$firebaseConfig, process.env.NEXT_PUBLIC_FIREBASE_PROJECT || "firestarter");
-        $04f312a4f905e9c6$var$firestore = (0, $b5R2n$firebasefirestore.getFirestore)($04f312a4f905e9c6$var$firebase);
-        $04f312a4f905e9c6$var$auth = (0, $b5R2n$firebaseauth.getAuth)($04f312a4f905e9c6$var$firebase);
-        $04f312a4f905e9c6$var$storage = (0, $b5R2n$firebasestorage.getStorage)($04f312a4f905e9c6$var$firebase);
-        console.log("Firebase Initialized");
-        if (!!process.env.NEXT_PUBLIC_FIREBASE_EMULATION && settings?.emulators) {
-            (0, $b5R2n$firebasefirestore.connectFirestoreEmulator)($04f312a4f905e9c6$var$firestore, process.env.NEXT_PUBLIC_FIREBASE_EMULATION, settings.emulators?.firestore?.port);
-            (0, $b5R2n$firebaseauth.connectAuthEmulator)($04f312a4f905e9c6$var$auth, `http://${process.env.NEXT_PUBLIC_FIREBASE_EMULATION}:${settings.emulators?.auth?.port}`);
-            (0, $b5R2n$firebasestorage.connectStorageEmulator)($04f312a4f905e9c6$var$storage, process.env.NEXT_PUBLIC_FIREBASE_EMULATION, settings.emulators?.storage?.port);
-            console.log("Firebase Emulation is enabled");
-        }
-    }
-    return {
-        firebase: $04f312a4f905e9c6$var$firebase,
-        firestore: $04f312a4f905e9c6$var$firestore,
-        auth: $04f312a4f905e9c6$var$auth,
-        storage: $04f312a4f905e9c6$var$storage
-    };
-}
-
-
-
-
 const $fa317698e9a11cea$var$FirestoreContext = /*#__PURE__*/ (0, $b5R2n$react.createContext)(null);
 function $fa317698e9a11cea$export$a5904d1e05b34e56({ firestore: firestore , children: children  }) {
     if (!firestore) throw new Error("FirestoreProvider requires a Firestore instance");
@@ -201,7 +154,7 @@ const $1519c5e2f74ac89b$var$StoreContext = /*#__PURE__*/ (0, $b5R2n$react.create
     store: (0, ($parcel$interopDefault($b5R2n$store2))),
     defaultValues: {}
 });
-function $1519c5e2f74ac89b$export$3b5c74f3f11c675d({ namespace: namespace = process.env.NEXT_PUBLIC_FIREBASE_PROJECT || "firestarter" , defaultValues: defaultValues = {} , children: children  }) {
+function $1519c5e2f74ac89b$export$3b5c74f3f11c675d({ namespace: namespace = "firestarter" , defaultValues: defaultValues = {} , children: children  }) {
     console.info("Connect Store: " + namespace);
     const store = (0, ($parcel$interopDefault($b5R2n$store2))).namespace(namespace);
     const value = {
@@ -353,18 +306,21 @@ function $1519c5e2f74ac89b$export$7ecb794d2aec60b9(key) {
 }
 
 
-function $57ac30262d77fa27$export$2e2bcd8739ae039({ defaultStore: defaultStore , settings: settings , children: children  }) {
-    const { auth: auth , firestore: firestore  } = (0, $04f312a4f905e9c6$export$7a667d08ed65fa47)(settings);
+function $57ac30262d77fa27$export$2e2bcd8739ae039({ defaultStore: defaultStore , firebase: firebase , children: children  }) {
+    const { app: app , auth: auth , firestore: firestore  } = firebase;
+    let wrapped = children;
+    if (firestore) wrapped = /*#__PURE__*/ (0, $b5R2n$reactjsxruntime.jsx)((0, $fa317698e9a11cea$export$a5904d1e05b34e56), {
+        firestore: firestore,
+        children: wrapped
+    });
+    if (auth) wrapped = /*#__PURE__*/ (0, $b5R2n$reactjsxruntime.jsx)((0, $60703c602d9dcdb8$export$87091915187a1a85), {
+        auth: auth,
+        children: wrapped
+    });
     return /*#__PURE__*/ (0, $b5R2n$reactjsxruntime.jsx)((0, $1519c5e2f74ac89b$export$3b5c74f3f11c675d), {
-        namespace: process.env.NEXT_PUBLIC_FIREBASE_NAMESPACE || "firestarter",
+        namespace: app.name || "firestarter",
         defaultValues: defaultStore,
-        children: /*#__PURE__*/ (0, $b5R2n$reactjsxruntime.jsx)((0, $60703c602d9dcdb8$export$87091915187a1a85), {
-            auth: auth,
-            children: /*#__PURE__*/ (0, $b5R2n$reactjsxruntime.jsx)((0, $fa317698e9a11cea$export$a5904d1e05b34e56), {
-                firestore: firestore,
-                children: children
-            })
-        })
+        children: wrapped
     });
 }
 

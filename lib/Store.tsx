@@ -11,7 +11,7 @@ export type FirestarterStoreType = {
 const StoreContext = createContext<FirestarterStoreType>({ store: store2, defaultValues: {} });
 
 export function StoreProvider({
-  namespace = process.env.NEXT_PUBLIC_FIREBASE_PROJECT || 'firestarter',
+  namespace = 'firestarter',
   defaultValues = {},
   children,
 }: {

@@ -2,6 +2,9 @@ import { ReactNode, FormEventHandler } from "react";
 import { Auth, User } from "firebase/auth";
 import { Firestore, DocumentReference, DocumentSnapshot, SnapshotListenOptions, Query, QuerySnapshot } from "firebase/firestore";
 import { StoreType } from "store2";
+import { FirebaseApp } from "firebase/app";
+import { Functions } from "firebase/functions";
+import { FirebaseStorage } from "firebase/storage";
 import cx from "clsx";
 type FirestarterAuthSettings = {
     loginPath: string;
@@ -68,12 +71,19 @@ export function usePageSet(key: string): (value: any) => void;
 export function useLocalGet(key: string): () => any;
 export function useSessionGet(key: string): () => any;
 export function usePageGet(key: string): () => any;
+type FirestarterFirebase = {
+    app: FirebaseApp;
+    firestore?: Firestore;
+    auth?: Auth;
+    storage?: FirebaseStorage;
+    functions?: Functions;
+};
 /**
  * A wrapper for the other providers.
  */
-export function Firestarter({ defaultStore, settings, children }: {
+export function Firestarter({ defaultStore, firebase, children }: {
     defaultStore?: any;
-    settings?: any;
+    firebase: FirestarterFirebase;
     children: ReactNode;
 }): JSX.Element;
 enum FirestarterLoginStatus {

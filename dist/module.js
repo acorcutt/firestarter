@@ -1,15 +1,13 @@
 import {jsx as $5gcJ2$jsx} from "react/jsx-runtime";
 import $5gcJ2$mitt from "mitt";
 import {createContext as $5gcJ2$createContext, useState as $5gcJ2$useState, useEffect as $5gcJ2$useEffect, useContext as $5gcJ2$useContext, useCallback as $5gcJ2$useCallback} from "react";
-import {onAuthStateChanged as $5gcJ2$onAuthStateChanged, updateProfile as $5gcJ2$updateProfile, getAuth as $5gcJ2$getAuth, connectAuthEmulator as $5gcJ2$connectAuthEmulator, sendSignInLinkToEmail as $5gcJ2$sendSignInLinkToEmail, signOut as $5gcJ2$signOut, signInWithEmailLink as $5gcJ2$signInWithEmailLink, isSignInWithEmailLink as $5gcJ2$isSignInWithEmailLink} from "firebase/auth";
+import {onAuthStateChanged as $5gcJ2$onAuthStateChanged, updateProfile as $5gcJ2$updateProfile, sendSignInLinkToEmail as $5gcJ2$sendSignInLinkToEmail, signOut as $5gcJ2$signOut, signInWithEmailLink as $5gcJ2$signInWithEmailLink, isSignInWithEmailLink as $5gcJ2$isSignInWithEmailLink} from "firebase/auth";
 import $5gcJ2$fastdeepequales6react from "fast-deep-equal/es6/react";
-import {getApp as $5gcJ2$getApp, initializeApp as $5gcJ2$initializeApp} from "firebase/app";
-import {getFirestore as $5gcJ2$getFirestore, connectFirestoreEmulator as $5gcJ2$connectFirestoreEmulator, refEqual as $5gcJ2$refEqual, onSnapshot as $5gcJ2$onSnapshot, queryEqual as $5gcJ2$queryEqual} from "firebase/firestore";
-import {getStorage as $5gcJ2$getStorage, connectStorageEmulator as $5gcJ2$connectStorageEmulator} from "firebase/storage";
 import $5gcJ2$store2 from "store2";
 import $5gcJ2$clsx from "clsx";
 import {useForm as $5gcJ2$useForm} from "react-hook-form";
 import {useRouter as $5gcJ2$useRouter} from "next/router";
+import {refEqual as $5gcJ2$refEqual, onSnapshot as $5gcJ2$onSnapshot, queryEqual as $5gcJ2$queryEqual} from "firebase/firestore";
 
 
 
@@ -95,51 +93,6 @@ function $31e53375a4b61e5a$export$c92c4ec7a2418617(user, profile) {
 
 
 
-
-
-// Firebase configuration
-const $4ff9f036ba7c16cf$var$firebaseConfig = {
-    apiKey: process.env.NEXT_PUBLIC_FIREBASE_API,
-    authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH,
-    projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT,
-    storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE,
-    messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_SENDER,
-    appId: process.env.NEXT_PUBLIC_FIREBASE_APP
-};
-let $4ff9f036ba7c16cf$var$firebase, $4ff9f036ba7c16cf$var$firestore, $4ff9f036ba7c16cf$var$auth, $4ff9f036ba7c16cf$var$storage;
-function $4ff9f036ba7c16cf$export$7a667d08ed65fa47(settings) {
-    try {
-        // This will throw an error if app is not initialized
-        $4ff9f036ba7c16cf$var$firebase = (0, $5gcJ2$getApp)(process.env.NEXT_PUBLIC_FIREBASE_PROJECT || "firestarter");
-        $4ff9f036ba7c16cf$var$firestore = (0, $5gcJ2$getFirestore)($4ff9f036ba7c16cf$var$firebase);
-        $4ff9f036ba7c16cf$var$auth = (0, $5gcJ2$getAuth)($4ff9f036ba7c16cf$var$firebase);
-        $4ff9f036ba7c16cf$var$storage = (0, $5gcJ2$getStorage)($4ff9f036ba7c16cf$var$firebase);
-        console.log("Firebase Connected");
-    } catch (_) {
-        // Initialize Firebase once to prevent errors
-        $4ff9f036ba7c16cf$var$firebase = (0, $5gcJ2$initializeApp)($4ff9f036ba7c16cf$var$firebaseConfig, process.env.NEXT_PUBLIC_FIREBASE_PROJECT || "firestarter");
-        $4ff9f036ba7c16cf$var$firestore = (0, $5gcJ2$getFirestore)($4ff9f036ba7c16cf$var$firebase);
-        $4ff9f036ba7c16cf$var$auth = (0, $5gcJ2$getAuth)($4ff9f036ba7c16cf$var$firebase);
-        $4ff9f036ba7c16cf$var$storage = (0, $5gcJ2$getStorage)($4ff9f036ba7c16cf$var$firebase);
-        console.log("Firebase Initialized");
-        if (!!process.env.NEXT_PUBLIC_FIREBASE_EMULATION && settings?.emulators) {
-            (0, $5gcJ2$connectFirestoreEmulator)($4ff9f036ba7c16cf$var$firestore, process.env.NEXT_PUBLIC_FIREBASE_EMULATION, settings.emulators?.firestore?.port);
-            (0, $5gcJ2$connectAuthEmulator)($4ff9f036ba7c16cf$var$auth, `http://${process.env.NEXT_PUBLIC_FIREBASE_EMULATION}:${settings.emulators?.auth?.port}`);
-            (0, $5gcJ2$connectStorageEmulator)($4ff9f036ba7c16cf$var$storage, process.env.NEXT_PUBLIC_FIREBASE_EMULATION, settings.emulators?.storage?.port);
-            console.log("Firebase Emulation is enabled");
-        }
-    }
-    return {
-        firebase: $4ff9f036ba7c16cf$var$firebase,
-        firestore: $4ff9f036ba7c16cf$var$firestore,
-        auth: $4ff9f036ba7c16cf$var$auth,
-        storage: $4ff9f036ba7c16cf$var$storage
-    };
-}
-
-
-
-
 const $2a05438d4a88cbc9$var$FirestoreContext = /*#__PURE__*/ (0, $5gcJ2$createContext)(null);
 function $2a05438d4a88cbc9$export$a5904d1e05b34e56({ firestore: firestore , children: children  }) {
     if (!firestore) throw new Error("FirestoreProvider requires a Firestore instance");
@@ -163,7 +116,7 @@ const $b84ea69f5e5063ac$var$StoreContext = /*#__PURE__*/ (0, $5gcJ2$createContex
     store: (0, $5gcJ2$store2),
     defaultValues: {}
 });
-function $b84ea69f5e5063ac$export$3b5c74f3f11c675d({ namespace: namespace = process.env.NEXT_PUBLIC_FIREBASE_PROJECT || "firestarter" , defaultValues: defaultValues = {} , children: children  }) {
+function $b84ea69f5e5063ac$export$3b5c74f3f11c675d({ namespace: namespace = "firestarter" , defaultValues: defaultValues = {} , children: children  }) {
     console.info("Connect Store: " + namespace);
     const store = (0, $5gcJ2$store2).namespace(namespace);
     const value = {
@@ -315,18 +268,21 @@ function $b84ea69f5e5063ac$export$7ecb794d2aec60b9(key) {
 }
 
 
-function $c7abf29a84d20538$export$2e2bcd8739ae039({ defaultStore: defaultStore , settings: settings , children: children  }) {
-    const { auth: auth , firestore: firestore  } = (0, $4ff9f036ba7c16cf$export$7a667d08ed65fa47)(settings);
+function $c7abf29a84d20538$export$2e2bcd8739ae039({ defaultStore: defaultStore , firebase: firebase , children: children  }) {
+    const { app: app , auth: auth , firestore: firestore  } = firebase;
+    let wrapped = children;
+    if (firestore) wrapped = /*#__PURE__*/ (0, $5gcJ2$jsx)((0, $2a05438d4a88cbc9$export$a5904d1e05b34e56), {
+        firestore: firestore,
+        children: wrapped
+    });
+    if (auth) wrapped = /*#__PURE__*/ (0, $5gcJ2$jsx)((0, $31e53375a4b61e5a$export$87091915187a1a85), {
+        auth: auth,
+        children: wrapped
+    });
     return /*#__PURE__*/ (0, $5gcJ2$jsx)((0, $b84ea69f5e5063ac$export$3b5c74f3f11c675d), {
-        namespace: process.env.NEXT_PUBLIC_FIREBASE_NAMESPACE || "firestarter",
+        namespace: app.name || "firestarter",
         defaultValues: defaultStore,
-        children: /*#__PURE__*/ (0, $5gcJ2$jsx)((0, $31e53375a4b61e5a$export$87091915187a1a85), {
-            auth: auth,
-            children: /*#__PURE__*/ (0, $5gcJ2$jsx)((0, $2a05438d4a88cbc9$export$a5904d1e05b34e56), {
-                firestore: firestore,
-                children: children
-            })
-        })
+        children: wrapped
     });
 }
 

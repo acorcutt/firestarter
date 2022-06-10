@@ -32,11 +32,25 @@ npm i @acorcutt/firestarter
 
 ## Usage
 
-- Check the included next.js app
+#### Setup providers with your firebaseConfig and optional emulator settings:
+
+```js
+import firebaseConfig from '../firebase';
+import settings from './firebase/settings.json';
+import { getFirebase } from '../lib/firebase';
+
+const firebase = getFirebase(firebaseConfig, settings.emulators);
+
+<Firestarter firebase={firebase}>
+  <App />
+</Firestarter>;
+```
+
+#### See included `/pages` folder for examples.
 
 ## Develop
 
-To run the app setup your `.firebaserc` and `.env.local` from your firebase project settings.
+To run the development app setup your `.firebaserc` and `.env.local` from your firebase project settings.
 
 `.firebaserc`
 
@@ -62,18 +76,8 @@ NEXT_PUBLIC_FIREBASE_MESSAGING=<messagingSenderId>
 NEXT_PUBLIC_FIREBASE_APP=<appId>
 ```
 
-To enable emulation specify a hostname:
+To enable emulation:
 
 ```
-NEXT_PUBLIC_FIREBASE_EMULATION=localhost
-```
-
-#### Give Firestarter your Firebase `settings.json` to connect emulators
-
-```js
-import settings from './firebase/settings.json';
-
-<Firestarter settings={settings}>
-  <App />
-</Firestarter>;
+NEXT_PUBLIC_FIREBASE_EMULATION=true
 ```
