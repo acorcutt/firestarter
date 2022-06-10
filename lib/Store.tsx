@@ -1,5 +1,5 @@
 import mitt from 'mitt';
-import { createContext, ReactNode, useCallback, useContext } from 'react';
+import { createContext, ReactNode, useCallback, useContext, useMemo } from 'react';
 import { useEffect, useState } from 'react';
 import store2, { StoreType } from 'store2';
 
@@ -19,9 +19,12 @@ export function StoreProvider({
   defaultValues?: object;
   children: ReactNode;
 }) {
-  console.info('Connect Store: ' + namespace);
-  const store = store2.namespace(namespace);
-  const value = { store, defaultValues };
+  const value = useMemo(() => {
+    console.info('Connect Store: ' + namespace);
+    const store = store2.namespace(namespace);
+    return { store, defaultValues };
+  }, [defaultValues, namespace]);
+
   return <StoreContext.Provider value={value}>{children}</StoreContext.Provider>;
 }
 
