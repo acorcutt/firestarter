@@ -93,7 +93,7 @@ export function useVerify(): FirestarterVerifyState {
   // If user is authenticated, redirect to the user page
   useEffect(() => {
     if (currentUser) {
-      router.replace(settings.userPath || defaultAuthSettings.userPath);
+      router.replace(router.query.redirect ? String(router.query.redirect) : settings.userPath || defaultAuthSettings.userPath);
     }
   }, [currentUser, router, settings.userPath]);
 

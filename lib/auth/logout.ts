@@ -20,7 +20,7 @@ export function useLogout() {
 
   useEffect(() => {
     if (connected && !currentUser) {
-      router.replace(settings.homePath || defaultAuthSettings.homePath);
+      router.push(settings.homePath || defaultAuthSettings.homePath);
     }
   }, [connected, currentUser, router, settings.homePath]);
 
