@@ -1,7 +1,7 @@
 import { signOut } from 'firebase/auth';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
-import { useAuth } from '../Auth';
+import { useAuth, defaultAuthSettings } from '../Auth';
 
 export enum FirestarterLogoutStatus {
   Connecting,
@@ -20,7 +20,7 @@ export function useLogout() {
 
   useEffect(() => {
     if (connected && !currentUser) {
-      router.replace(settings.homePath);
+      router.replace(settings.homePath || defaultAuthSettings.homePath);
     }
   }, [connected, currentUser, router, settings.homePath]);
 

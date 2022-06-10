@@ -37,7 +37,7 @@ npm i @acorcutt/firestarter
 ```js
 import firebaseConfig from '../firebase';
 import settings from './firebase/settings.json';
-import { getFirebase } from '../lib/firebase';
+import { Firestarter, getFirebase } from '@acorcutt/firestarter';
 
 const firebase = getFirebase(firebaseConfig, settings.emulators);
 

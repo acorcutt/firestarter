@@ -1,6 +1,6 @@
 import { sendSignInLinkToEmail, User } from 'firebase/auth';
 import { FormEventHandler, useEffect, useState } from 'react';
-import { useAuth } from '../Auth';
+import { useAuth, defaultAuthSettings } from '../Auth';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useRouter } from 'next/router';
 import { useLocalSet } from '../Store';
@@ -61,7 +61,7 @@ export function useLogin(): FirestarterLoginState {
   // If user is authenticated, redirect to the user page
   useEffect(() => {
     if (currentUser) {
-      router.replace(settings.userPath);
+      router.replace(settings.userPath || defaultAuthSettings.userPath);
     }
   }, [currentUser, router, settings.userPath]);
 

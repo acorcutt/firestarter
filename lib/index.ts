@@ -1,5 +1,3 @@
-import { getFirebase } from './firebase';
-
 export { default as Firestarter } from './Firestarter';
 export { default as cx } from './cx';
 

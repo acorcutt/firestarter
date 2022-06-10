@@ -1,14 +1,14 @@
-import {getApp as $5gcJ2$getApp, initializeApp as $5gcJ2$initializeApp} from "firebase/app";
-import {getFirestore as $5gcJ2$getFirestore, connectFirestoreEmulator as $5gcJ2$connectFirestoreEmulator, refEqual as $5gcJ2$refEqual, onSnapshot as $5gcJ2$onSnapshot, queryEqual as $5gcJ2$queryEqual} from "firebase/firestore";
-import {getAuth as $5gcJ2$getAuth, connectAuthEmulator as $5gcJ2$connectAuthEmulator, onAuthStateChanged as $5gcJ2$onAuthStateChanged, updateProfile as $5gcJ2$updateProfile, sendSignInLinkToEmail as $5gcJ2$sendSignInLinkToEmail, signOut as $5gcJ2$signOut, signInWithEmailLink as $5gcJ2$signInWithEmailLink, isSignInWithEmailLink as $5gcJ2$isSignInWithEmailLink} from "firebase/auth";
-import {getStorage as $5gcJ2$getStorage, connectStorageEmulator as $5gcJ2$connectStorageEmulator} from "firebase/storage";
-import {getFunctions as $5gcJ2$getFunctions, connectFunctionsEmulator as $5gcJ2$connectFunctionsEmulator} from "firebase/functions";
 import {jsx as $5gcJ2$jsx} from "react/jsx-runtime";
 import $5gcJ2$mitt from "mitt";
 import {createContext as $5gcJ2$createContext, useState as $5gcJ2$useState, useEffect as $5gcJ2$useEffect, useContext as $5gcJ2$useContext, useCallback as $5gcJ2$useCallback} from "react";
+import {onAuthStateChanged as $5gcJ2$onAuthStateChanged, updateProfile as $5gcJ2$updateProfile, getAuth as $5gcJ2$getAuth, connectAuthEmulator as $5gcJ2$connectAuthEmulator, sendSignInLinkToEmail as $5gcJ2$sendSignInLinkToEmail, signOut as $5gcJ2$signOut, signInWithEmailLink as $5gcJ2$signInWithEmailLink, isSignInWithEmailLink as $5gcJ2$isSignInWithEmailLink} from "firebase/auth";
 import $5gcJ2$fastdeepequales6react from "fast-deep-equal/es6/react";
 import $5gcJ2$store2 from "store2";
 import $5gcJ2$clsx from "clsx";
+import {getApp as $5gcJ2$getApp, initializeApp as $5gcJ2$initializeApp} from "firebase/app";
+import {getFirestore as $5gcJ2$getFirestore, connectFirestoreEmulator as $5gcJ2$connectFirestoreEmulator, refEqual as $5gcJ2$refEqual, onSnapshot as $5gcJ2$onSnapshot, queryEqual as $5gcJ2$queryEqual} from "firebase/firestore";
+import {getStorage as $5gcJ2$getStorage, connectStorageEmulator as $5gcJ2$connectStorageEmulator} from "firebase/storage";
+import {getFunctions as $5gcJ2$getFunctions, connectFunctionsEmulator as $5gcJ2$connectFunctionsEmulator} from "firebase/functions";
 import {useForm as $5gcJ2$useForm} from "react-hook-form";
 import {useRouter as $5gcJ2$useRouter} from "next/router";
 
@@ -17,50 +17,9 @@ import {useRouter as $5gcJ2$useRouter} from "next/router";
 
 
 
-let $4ff9f036ba7c16cf$var$app, $4ff9f036ba7c16cf$var$firestore, $4ff9f036ba7c16cf$var$auth, $4ff9f036ba7c16cf$var$storage, $4ff9f036ba7c16cf$var$functions;
-function $4ff9f036ba7c16cf$export$7a667d08ed65fa47(config, emulators) {
-    try {
-        // This will throw an error if app is not initialized
-        $4ff9f036ba7c16cf$var$app = (0, $5gcJ2$getApp)(config.projectId || "firestarter");
-        $4ff9f036ba7c16cf$var$firestore = (0, $5gcJ2$getFirestore)($4ff9f036ba7c16cf$var$app);
-        $4ff9f036ba7c16cf$var$auth = (0, $5gcJ2$getAuth)($4ff9f036ba7c16cf$var$app);
-        $4ff9f036ba7c16cf$var$storage = (0, $5gcJ2$getStorage)($4ff9f036ba7c16cf$var$app);
-        $4ff9f036ba7c16cf$var$functions = (0, $5gcJ2$getFunctions)($4ff9f036ba7c16cf$var$app);
-        console.log("Firebase Connected");
-    } catch (_) {
-        // Initialize Firebase once to prevent errors
-        $4ff9f036ba7c16cf$var$app = (0, $5gcJ2$initializeApp)(config, config.projectId || "firestarter");
-        $4ff9f036ba7c16cf$var$firestore = (0, $5gcJ2$getFirestore)($4ff9f036ba7c16cf$var$app);
-        $4ff9f036ba7c16cf$var$auth = (0, $5gcJ2$getAuth)($4ff9f036ba7c16cf$var$app);
-        $4ff9f036ba7c16cf$var$storage = (0, $5gcJ2$getStorage)($4ff9f036ba7c16cf$var$app);
-        $4ff9f036ba7c16cf$var$functions = (0, $5gcJ2$getFunctions)($4ff9f036ba7c16cf$var$app);
-        console.log("Firebase Initialized");
-        if (emulators) {
-            emulators.firestore && (0, $5gcJ2$connectFirestoreEmulator)($4ff9f036ba7c16cf$var$firestore, emulators.firestore.host || "localhost", emulators.firestore.port || 8080);
-            emulators.auth && (0, $5gcJ2$connectAuthEmulator)($4ff9f036ba7c16cf$var$auth, `http://${emulators.auth.host || "localhost"}:${emulators.auth.port || 9099}`);
-            emulators.storage && (0, $5gcJ2$connectStorageEmulator)($4ff9f036ba7c16cf$var$storage, emulators.storage.host || "localhost", emulators.storage.port || 9199);
-            emulators.functions && (0, $5gcJ2$connectFunctionsEmulator)($4ff9f036ba7c16cf$var$functions, emulators.functions.host || "localhost", emulators.functions.port || 5001);
-            console.log("Firebase Emulation is enabled");
-        }
-    }
-    return {
-        app: $4ff9f036ba7c16cf$var$app,
-        firestore: $4ff9f036ba7c16cf$var$firestore,
-        auth: $4ff9f036ba7c16cf$var$auth,
-        storage: $4ff9f036ba7c16cf$var$storage,
-        functions: $4ff9f036ba7c16cf$var$functions
-    };
-}
 
 
-
-
-
-
-
-
-
-const $31e53375a4b61e5a$var$defaultSettings = {
+const $31e53375a4b61e5a$export$6387722de17399a7 = {
     homePath: "/",
     loginPath: "/login",
     logoutPath: "/logout",
@@ -72,7 +31,7 @@ const $31e53375a4b61e5a$var$AuthContext = /*#__PURE__*/ (0, $5gcJ2$createContext
     currentUser: null,
     connected: false,
     auth: null,
-    settings: $31e53375a4b61e5a$var$defaultSettings
+    settings: $31e53375a4b61e5a$export$6387722de17399a7
 });
 const $31e53375a4b61e5a$var$emitter = (0, $5gcJ2$mitt)();
 function $31e53375a4b61e5a$export$87091915187a1a85({ auth: auth , settings: settings , children: children  }) {
@@ -113,7 +72,7 @@ function $31e53375a4b61e5a$export$87091915187a1a85({ auth: auth , settings: sett
         currentUser: currentUser1,
         connected: connected,
         settings: {
-            ...$31e53375a4b61e5a$var$defaultSettings,
+            ...$31e53375a4b61e5a$export$6387722de17399a7,
             ...settings
         }
     };
@@ -312,7 +271,7 @@ function $b84ea69f5e5063ac$export$7ecb794d2aec60b9(key) {
 }
 
 
-function $c7abf29a84d20538$export$2e2bcd8739ae039({ defaultStore: defaultStore , firebase: firebase , children: children  }) {
+function $c7abf29a84d20538$export$2e2bcd8739ae039({ defaultStore: defaultStore , firebase: firebase , settings: settings , children: children  }) {
     const { app: app , auth: auth , firestore: firestore  } = firebase;
     let wrapped = children;
     if (firestore) wrapped = /*#__PURE__*/ (0, $5gcJ2$jsx)((0, $2a05438d4a88cbc9$export$a5904d1e05b34e56), {
@@ -321,6 +280,7 @@ function $c7abf29a84d20538$export$2e2bcd8739ae039({ defaultStore: defaultStore ,
     });
     if (auth) wrapped = /*#__PURE__*/ (0, $5gcJ2$jsx)((0, $31e53375a4b61e5a$export$87091915187a1a85), {
         auth: auth,
+        settings: settings?.auth,
         children: wrapped
     });
     return /*#__PURE__*/ (0, $5gcJ2$jsx)((0, $b84ea69f5e5063ac$export$3b5c74f3f11c675d), {
@@ -334,6 +294,46 @@ function $c7abf29a84d20538$export$2e2bcd8739ae039({ defaultStore: defaultStore ,
 
 var $1b6c2ba4e872a6ac$export$2e2bcd8739ae039 = (0, $5gcJ2$clsx);
 
+
+
+
+
+
+
+let $4ff9f036ba7c16cf$var$app, $4ff9f036ba7c16cf$var$firestore, $4ff9f036ba7c16cf$var$auth, $4ff9f036ba7c16cf$var$storage, $4ff9f036ba7c16cf$var$functions;
+function $4ff9f036ba7c16cf$export$7a667d08ed65fa47(config, emulators) {
+    try {
+        // This will throw an error if app is not initialized
+        $4ff9f036ba7c16cf$var$app = (0, $5gcJ2$getApp)(config.projectId || "firestarter");
+        $4ff9f036ba7c16cf$var$firestore = (0, $5gcJ2$getFirestore)($4ff9f036ba7c16cf$var$app);
+        $4ff9f036ba7c16cf$var$auth = (0, $5gcJ2$getAuth)($4ff9f036ba7c16cf$var$app);
+        $4ff9f036ba7c16cf$var$storage = (0, $5gcJ2$getStorage)($4ff9f036ba7c16cf$var$app);
+        $4ff9f036ba7c16cf$var$functions = (0, $5gcJ2$getFunctions)($4ff9f036ba7c16cf$var$app);
+        console.log("Firebase Connected");
+    } catch (_) {
+        // Initialize Firebase once to prevent errors
+        $4ff9f036ba7c16cf$var$app = (0, $5gcJ2$initializeApp)(config, config.projectId || "firestarter");
+        $4ff9f036ba7c16cf$var$firestore = (0, $5gcJ2$getFirestore)($4ff9f036ba7c16cf$var$app);
+        $4ff9f036ba7c16cf$var$auth = (0, $5gcJ2$getAuth)($4ff9f036ba7c16cf$var$app);
+        $4ff9f036ba7c16cf$var$storage = (0, $5gcJ2$getStorage)($4ff9f036ba7c16cf$var$app);
+        $4ff9f036ba7c16cf$var$functions = (0, $5gcJ2$getFunctions)($4ff9f036ba7c16cf$var$app);
+        console.log("Firebase Initialized");
+        if (emulators) {
+            emulators.firestore && (0, $5gcJ2$connectFirestoreEmulator)($4ff9f036ba7c16cf$var$firestore, emulators.firestore.host || "localhost", emulators.firestore.port || 8080);
+            emulators.auth && (0, $5gcJ2$connectAuthEmulator)($4ff9f036ba7c16cf$var$auth, `http://${emulators.auth.host || "localhost"}:${emulators.auth.port || 9099}`);
+            emulators.storage && (0, $5gcJ2$connectStorageEmulator)($4ff9f036ba7c16cf$var$storage, emulators.storage.host || "localhost", emulators.storage.port || 9199);
+            emulators.functions && (0, $5gcJ2$connectFunctionsEmulator)($4ff9f036ba7c16cf$var$functions, emulators.functions.host || "localhost", emulators.functions.port || 5001);
+            console.log("Firebase Emulation is enabled");
+        }
+    }
+    return {
+        app: $4ff9f036ba7c16cf$var$app,
+        firestore: $4ff9f036ba7c16cf$var$firestore,
+        auth: $4ff9f036ba7c16cf$var$auth,
+        storage: $4ff9f036ba7c16cf$var$storage,
+        functions: $4ff9f036ba7c16cf$var$functions
+    };
+}
 
 
 
@@ -379,7 +379,7 @@ function $77d0a25a4f082d11$export$d4e22f05f73ea56b() {
     };
     // If user is authenticated, redirect to the user page
     (0, $5gcJ2$useEffect)(()=>{
-        if (currentUser) router.replace(settings.userPath);
+        if (currentUser) router.replace(settings.userPath || (0, $31e53375a4b61e5a$export$6387722de17399a7).userPath);
     }, [
         currentUser,
         router,
@@ -419,7 +419,7 @@ function $74faa060192d7163$export$9a5b97a7aba1a585() {
         auth
     ]);
     (0, $5gcJ2$useEffect)(()=>{
-        if (connected && !currentUser) router.replace(settings.homePath);
+        if (connected && !currentUser) router.replace(settings.homePath || (0, $31e53375a4b61e5a$export$6387722de17399a7).homePath);
     }, [
         connected,
         currentUser,
@@ -506,7 +506,7 @@ function $1272af629abba37c$export$9683d0cca3dc3e98() {
     ]);
     // If user is authenticated, redirect to the user page
     (0, $5gcJ2$useEffect)(()=>{
-        if (currentUser) router.replace(settings.userPath);
+        if (currentUser) router.replace(settings.userPath || (0, $31e53375a4b61e5a$export$6387722de17399a7).userPath);
     }, [
         currentUser,
         router,

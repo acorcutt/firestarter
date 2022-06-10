@@ -3,14 +3,16 @@ import { createContext, ReactNode, useContext } from 'react';
 import { useEffect, useState } from 'react';
 import { Auth, onAuthStateChanged, updateProfile, User } from 'firebase/auth';
 import deepEqual from 'fast-deep-equal/es6/react';
+import { UrlObject } from 'url';
+type Url = string | UrlObject;
 
 export type FirestarterAuthSettings = {
-  loginPath: string;
-  logoutPath: string;
-  verifyPath: string;
-  actionPath: string;
-  homePath: string;
-  userPath: string;
+  loginPath?: Url;
+  logoutPath?: Url;
+  verifyPath?: Url;
+  actionPath?: Url;
+  homePath?: Url;
+  userPath?: Url;
 };
 
 export type FirestarterAuthType = {
@@ -25,7 +27,7 @@ export type FirestarterProfileType = {
   photoURL?: string | null | undefined;
 };
 
-const defaultSettings: FirestarterAuthSettings = {
+export const defaultAuthSettings = {
   homePath: '/',
   loginPath: '/login',
   logoutPath: '/logout',
@@ -38,7 +40,7 @@ type FirestarterProfileEvent = {
   authProfileUpdate: User;
 };
 
-const AuthContext = createContext<FirestarterAuthType>({ currentUser: null, connected: false, auth: null, settings: defaultSettings });
+const AuthContext = createContext<FirestarterAuthType>({ currentUser: null, connected: false, auth: null, settings: defaultAuthSettings });
 
 const emitter = mitt<FirestarterProfileEvent>();
 
@@ -82,7 +84,7 @@ export function AuthProvider({ auth, settings, children }: { auth: Auth; setting
     };
   }, [currentUser]);
 
-  const value = { auth, currentUser: currentUser, connected, settings: { ...defaultSettings, ...settings } };
+  const value = { auth, currentUser: currentUser, connected, settings: { ...defaultAuthSettings, ...settings } };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }

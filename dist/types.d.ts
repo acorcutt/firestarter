@@ -1,25 +1,20 @@
-import { FirebaseApp } from "firebase/app";
-import { Firestore, DocumentReference, DocumentSnapshot, SnapshotListenOptions, Query, QuerySnapshot } from "firebase/firestore";
-import { Auth, User } from "firebase/auth";
-import { FirebaseStorage } from "firebase/storage";
-import { Functions } from "firebase/functions";
 import { ReactNode, FormEventHandler } from "react";
+import { Auth, User } from "firebase/auth";
+import { UrlObject } from "url";
+import { Firestore, DocumentReference, DocumentSnapshot, SnapshotListenOptions, Query, QuerySnapshot } from "firebase/firestore";
 import { StoreType } from "store2";
+import { FirebaseApp } from "firebase/app";
+import { Functions } from "firebase/functions";
+import { FirebaseStorage } from "firebase/storage";
 import cx from "clsx";
-export function getFirebase(config: any, emulators?: any): {
-    app: FirebaseApp;
-    firestore: Firestore;
-    auth: Auth;
-    storage: FirebaseStorage;
-    functions: Functions;
-};
+type Url = string | UrlObject;
 type FirestarterAuthSettings = {
-    loginPath: string;
-    logoutPath: string;
-    verifyPath: string;
-    actionPath: string;
-    homePath: string;
-    userPath: string;
+    loginPath?: Url;
+    logoutPath?: Url;
+    verifyPath?: Url;
+    actionPath?: Url;
+    homePath?: Url;
+    userPath?: Url;
 };
 type FirestarterAuthType = {
     currentUser: User | null;
@@ -88,11 +83,21 @@ type FirestarterFirebase = {
 /**
  * A wrapper for the other providers.
  */
-export function Firestarter({ defaultStore, firebase, children }: {
+export function Firestarter({ defaultStore, firebase, settings, children, }: {
     defaultStore?: any;
     firebase: FirestarterFirebase;
+    settings?: {
+        auth?: FirestarterAuthSettings;
+    };
     children: ReactNode;
 }): JSX.Element;
+export function getFirebase(config: any, emulators?: any): {
+    app: FirebaseApp;
+    firestore: Firestore;
+    auth: Auth;
+    storage: FirebaseStorage;
+    functions: Functions;
+};
 enum FirestarterLoginStatus {
     Connecting = 0,
     Inputing = 1,
