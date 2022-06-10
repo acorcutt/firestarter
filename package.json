@@ -9,6 +9,9 @@
   "engines": {
     "node": ">= 14"
   },
+  "files": [
+    "/dist"
+  ],
   "targets": {
     "default": {
       "includeNodeModules": [
