@@ -19,14 +19,14 @@ let firebase: FirebaseApp, firestore: Firestore, auth: Auth, storage: FirebaseSt
 export function getFirebase(settings?: any) {
   try {
     // This will throw an error if app is not initialized
-    firebase = getApp(process.env.NEXT_PUBLIC_FIREBASE_NAMESPACE || 'firestarter');
+    firebase = getApp(process.env.NEXT_PUBLIC_FIREBASE_PROJECT || 'firestarter');
     firestore = getFirestore(firebase);
     auth = getAuth(firebase);
     storage = getStorage(firebase);
     console.log('Firebase Connected');
   } catch (_) {
     // Initialize Firebase once to prevent errors
-    firebase = initializeApp(firebaseConfig, process.env.NEXT_PUBLIC_FIREBASE_NAMESPACE || 'firestarter');
+    firebase = initializeApp(firebaseConfig, process.env.NEXT_PUBLIC_FIREBASE_PROJECT || 'firestarter');
     firestore = getFirestore(firebase);
     auth = getAuth(firebase);
     storage = getStorage(firebase);

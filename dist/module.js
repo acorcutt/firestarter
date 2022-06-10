@@ -110,14 +110,14 @@ let $4ff9f036ba7c16cf$var$firebase, $4ff9f036ba7c16cf$var$firestore, $4ff9f036ba
 function $4ff9f036ba7c16cf$export$7a667d08ed65fa47(settings) {
     try {
         // This will throw an error if app is not initialized
-        $4ff9f036ba7c16cf$var$firebase = (0, $5gcJ2$getApp)(process.env.NEXT_PUBLIC_FIREBASE_NAMESPACE || "firestarter");
+        $4ff9f036ba7c16cf$var$firebase = (0, $5gcJ2$getApp)(process.env.NEXT_PUBLIC_FIREBASE_PROJECT || "firestarter");
         $4ff9f036ba7c16cf$var$firestore = (0, $5gcJ2$getFirestore)($4ff9f036ba7c16cf$var$firebase);
         $4ff9f036ba7c16cf$var$auth = (0, $5gcJ2$getAuth)($4ff9f036ba7c16cf$var$firebase);
         $4ff9f036ba7c16cf$var$storage = (0, $5gcJ2$getStorage)($4ff9f036ba7c16cf$var$firebase);
         console.log("Firebase Connected");
     } catch (_) {
         // Initialize Firebase once to prevent errors
-        $4ff9f036ba7c16cf$var$firebase = (0, $5gcJ2$initializeApp)($4ff9f036ba7c16cf$var$firebaseConfig, process.env.NEXT_PUBLIC_FIREBASE_NAMESPACE || "firestarter");
+        $4ff9f036ba7c16cf$var$firebase = (0, $5gcJ2$initializeApp)($4ff9f036ba7c16cf$var$firebaseConfig, process.env.NEXT_PUBLIC_FIREBASE_PROJECT || "firestarter");
         $4ff9f036ba7c16cf$var$firestore = (0, $5gcJ2$getFirestore)($4ff9f036ba7c16cf$var$firebase);
         $4ff9f036ba7c16cf$var$auth = (0, $5gcJ2$getAuth)($4ff9f036ba7c16cf$var$firebase);
         $4ff9f036ba7c16cf$var$storage = (0, $5gcJ2$getStorage)($4ff9f036ba7c16cf$var$firebase);
@@ -163,7 +163,8 @@ const $b84ea69f5e5063ac$var$StoreContext = /*#__PURE__*/ (0, $5gcJ2$createContex
     store: (0, $5gcJ2$store2),
     defaultValues: {}
 });
-function $b84ea69f5e5063ac$export$3b5c74f3f11c675d({ namespace: namespace , defaultValues: defaultValues = {} , children: children  }) {
+function $b84ea69f5e5063ac$export$3b5c74f3f11c675d({ namespace: namespace = process.env.NEXT_PUBLIC_FIREBASE_PROJECT || "firestarter" , defaultValues: defaultValues = {} , children: children  }) {
+    console.info("Connect Store: " + namespace);
     const store = (0, $5gcJ2$store2).namespace(namespace);
     const value = {
         store: store,

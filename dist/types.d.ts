@@ -42,8 +42,8 @@ type FirestarterStoreType = {
         [key: string]: any;
     };
 };
-export function StoreProvider({ namespace, defaultValues, children }: {
-    namespace: string;
+export function StoreProvider({ namespace, defaultValues, children, }: {
+    namespace?: string;
     defaultValues?: object;
     children: ReactNode;
 }): JSX.Element;

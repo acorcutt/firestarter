@@ -148,14 +148,14 @@ let $04f312a4f905e9c6$var$firebase, $04f312a4f905e9c6$var$firestore, $04f312a4f9
 function $04f312a4f905e9c6$export$7a667d08ed65fa47(settings) {
     try {
         // This will throw an error if app is not initialized
-        $04f312a4f905e9c6$var$firebase = (0, $b5R2n$firebaseapp.getApp)(process.env.NEXT_PUBLIC_FIREBASE_NAMESPACE || "firestarter");
+        $04f312a4f905e9c6$var$firebase = (0, $b5R2n$firebaseapp.getApp)(process.env.NEXT_PUBLIC_FIREBASE_PROJECT || "firestarter");
         $04f312a4f905e9c6$var$firestore = (0, $b5R2n$firebasefirestore.getFirestore)($04f312a4f905e9c6$var$firebase);
         $04f312a4f905e9c6$var$auth = (0, $b5R2n$firebaseauth.getAuth)($04f312a4f905e9c6$var$firebase);
         $04f312a4f905e9c6$var$storage = (0, $b5R2n$firebasestorage.getStorage)($04f312a4f905e9c6$var$firebase);
         console.log("Firebase Connected");
     } catch (_) {
         // Initialize Firebase once to prevent errors
-        $04f312a4f905e9c6$var$firebase = (0, $b5R2n$firebaseapp.initializeApp)($04f312a4f905e9c6$var$firebaseConfig, process.env.NEXT_PUBLIC_FIREBASE_NAMESPACE || "firestarter");
+        $04f312a4f905e9c6$var$firebase = (0, $b5R2n$firebaseapp.initializeApp)($04f312a4f905e9c6$var$firebaseConfig, process.env.NEXT_PUBLIC_FIREBASE_PROJECT || "firestarter");
         $04f312a4f905e9c6$var$firestore = (0, $b5R2n$firebasefirestore.getFirestore)($04f312a4f905e9c6$var$firebase);
         $04f312a4f905e9c6$var$auth = (0, $b5R2n$firebaseauth.getAuth)($04f312a4f905e9c6$var$firebase);
         $04f312a4f905e9c6$var$storage = (0, $b5R2n$firebasestorage.getStorage)($04f312a4f905e9c6$var$firebase);
@@ -201,7 +201,8 @@ const $1519c5e2f74ac89b$var$StoreContext = /*#__PURE__*/ (0, $b5R2n$react.create
     store: (0, ($parcel$interopDefault($b5R2n$store2))),
     defaultValues: {}
 });
-function $1519c5e2f74ac89b$export$3b5c74f3f11c675d({ namespace: namespace , defaultValues: defaultValues = {} , children: children  }) {
+function $1519c5e2f74ac89b$export$3b5c74f3f11c675d({ namespace: namespace = process.env.NEXT_PUBLIC_FIREBASE_PROJECT || "firestarter" , defaultValues: defaultValues = {} , children: children  }) {
+    console.info("Connect Store: " + namespace);
     const store = (0, ($parcel$interopDefault($b5R2n$store2))).namespace(namespace);
     const value = {
         store: store,
