@@ -1,2 +1,1 @@
-import clsx from 'clsx';
-export default clsx;
+export { default } from 'clsx';
