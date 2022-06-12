@@ -1,9 +1,10 @@
 {
   "name": "@acorcutt/firestarter",
-  "version": "0.0.11",
+  "version": "0.0.12",
   "description": "React firebase components for getting up and running quickly.",
   "source": "lib/index.ts",
-  "main": "dist/main.mjs",
+  "main": "dist/main.js",
+  "module": "dist/module.mjs",
   "types": "dist/types.d.ts",
   "engines": {
     "node": ">= 14"
@@ -12,17 +13,6 @@
     "/dist",
     "/lib"
   ],
-  "targets": {
-    "main": {
-      "includeNodeModules": [
-        "clsx",
-        "fast-deep-equal",
-        "mitt",
-        "store2",
-        "nanoid"
-      ]
-    }
-  },
   "scripts": {
     "parcel": "parcel build",
     "watch": "parcel watch",
@@ -78,6 +68,11 @@
     "next": "12",
     "react": "18",
     "react-dom": "18",
-    "react-hook-form": "7"
+    "react-hook-form": "7",
+    "clsx": "1",
+    "fast-deep-equal": "3",
+    "mitt": "3",
+    "store2": "2",
+    "nanoid": "4"
   }
 }
