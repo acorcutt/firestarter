@@ -5,6 +5,7 @@ import { Functions } from 'firebase/functions';
 import { FirebaseStorage } from 'firebase/storage';
 import { ReactNode } from 'react';
 import { AuthProvider, FirestarterAuthSettings } from './Auth';
+import { StorageProvider } from './FirebaseStorage';
 import { FirestoreProvider } from './Firestore';
 import { StoreProvider } from './Store';
 
@@ -30,12 +31,15 @@ export default function Firestarter({
   settings?: { auth?: FirestarterAuthSettings };
   children: ReactNode;
 }) {
-  const { app, auth, firestore } = firebase;
+  const { app, auth, firestore, storage } = firebase;
 
   let wrapped = children;
 
   if (firestore) {
     wrapped = <FirestoreProvider firestore={firestore}>{wrapped}</FirestoreProvider>;
+  }
+  if (storage) {
+    wrapped = <StorageProvider storage={storage}>{wrapped}</StorageProvider>;
   }
   if (auth) {
     wrapped = (
