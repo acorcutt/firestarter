@@ -1,5 +1,6 @@
 export { default as Firestarter } from './Firestarter';
-export { default as cx } from './cx';
+
+export { cx } from './cx';
 
 export { getFirebase } from './firebase';
 
@@ -36,6 +37,7 @@ export { useLogout, FirestarterLogoutStatus } from './auth/logout';
 export { useVerify, FirestarterVerifyStatus } from './auth/verify';
 
 export { FirestoreProvider, useFirestore } from './Firestore';
+export { StorageProvider, useStorage } from './FirebaseStorage';
 
 export { default as useDocumentSnapshot } from './firestore/useDocumentSnapshot';
 export { default as useQuerySnapshot } from './firestore/useQuerySnapshot';

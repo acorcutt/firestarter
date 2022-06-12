@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { useEffect, useMemo, useState } from 'react';
 import { useFirestore } from '../lib/Firestore';
 import { useDocumentSnapshot, useQuerySnapshot } from '../lib';
-import cx from '../lib/cx';
+import { cx } from '../lib';
 import { useLocalState } from '../lib/Store';
 import { useAuth } from '../lib/Auth';
 
