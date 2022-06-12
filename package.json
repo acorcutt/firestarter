@@ -1,10 +1,9 @@
 {
   "name": "@acorcutt/firestarter",
-  "version": "0.0.10",
+  "version": "0.0.11",
   "description": "React firebase components for getting up and running quickly.",
   "source": "lib/index.ts",
-  "main": "dist/main.js",
-  "module": "dist/module.js",
+  "main": "dist/main.mjs",
   "types": "dist/types.d.ts",
   "engines": {
     "node": ">= 14"
@@ -14,7 +13,7 @@
     "/lib"
   ],
   "targets": {
-    "default": {
+    "main": {
       "includeNodeModules": [
         "clsx",
         "fast-deep-equal",
