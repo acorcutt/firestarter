@@ -39,6 +39,7 @@ export { useVerify, FirestarterVerifyStatus } from './auth/verify';
 export { FirestoreProvider, useFirestore } from './Firestore';
 export { StorageProvider, useStorage } from './FirebaseStorage';
 
+export { default as useMemoState } from './firestore/useMemoState';
 export { default as useDocumentSnapshot } from './firestore/useDocumentSnapshot';
 export { default as useQuerySnapshot } from './firestore/useQuerySnapshot';
-export { default as useMemoState } from './firestore/useMemoState';
+export { default as useDocument } from './firestore/useDocument';
