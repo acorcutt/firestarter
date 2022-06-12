@@ -2,6 +2,8 @@ export { default as Firestarter } from './Firestarter';
 
 export { cx } from './cx';
 
+export { generateId } from './generateId';
+
 export { getFirebase } from './firebase';
 
 export {
