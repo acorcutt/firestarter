@@ -1,11 +1,15 @@
 {
   "name": "@acorcutt/firestarter",
-  "version": "0.0.13",
+  "version": "0.0.14",
   "description": "React firebase components for getting up and running quickly.",
   "source": "lib/index.ts",
   "main": "dist/main.cjs",
   "module": "dist/module.mjs",
   "types": "dist/types.d.ts",
+  "exports": {
+    "import": "./dist/module.mjs",
+    "require": "./dist/main.cjs"
+  },
   "engines": {
     "node": ">= 14"
   },
