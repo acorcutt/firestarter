@@ -1,6 +1,5 @@
 import mitt from 'mitt';
-import { createContext, ReactNode, useCallback, useContext, useMemo } from 'react';
-import { useEffect, useState } from 'react';
+import { createContext, ReactNode, useCallback, useContext, useMemo, useEffect, useState } from 'react';
 import store2, { StoreType } from 'store2';
 
 export type FirestarterStoreType = {
