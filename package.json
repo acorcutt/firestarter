@@ -1,6 +1,6 @@
 {
   "name": "@acorcutt/firestarter",
-  "version": "0.0.14",
+  "version": "0.0.15",
   "description": "React firebase components for getting up and running quickly.",
   "source": "lib/index.ts",
   "main": "dist/main.cjs",
@@ -53,9 +53,7 @@
     "postcss": "^8.4.14",
     "process": "^0.11.10",
     "tailwindcss": "^3.1.2",
-    "typescript": "^4.7.3"
-  },
-  "dependencies": {
+    "typescript": "^4.7.3",
     "clsx": "^1.1.1",
     "fast-deep-equal": "^3.1.3",
     "firebase": "^9.8.3",
@@ -66,5 +64,18 @@
     "react-dom": "^18.1.0",
     "react-hook-form": "^7.32.0",
     "store2": "^2.13.2"
+  },
+  "dependencies": {},
+  "peerDependencies": {
+    "clsx": "^1",
+    "fast-deep-equal": "^3",
+    "firebase": "^9",
+    "mitt": "^3",
+    "nanoid": "^3",
+    "next": "^12",
+    "react": "^18",
+    "react-dom": "^18",
+    "react-hook-form": "^7",
+    "store2": "^2"
   }
 }

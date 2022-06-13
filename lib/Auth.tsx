@@ -2,7 +2,7 @@ import mitt from 'mitt';
 import { createContext, ReactNode, useContext } from 'react';
 import { useEffect, useState } from 'react';
 import { Auth, onAuthStateChanged, updateProfile, User } from 'firebase/auth';
-import deepEqual from 'fast-deep-equal/es6/react';
+import deepEqual from 'fast-deep-equal';
 import { UrlObject } from 'url';
 type Url = string | UrlObject;
 

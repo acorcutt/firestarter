@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import deepEqual from 'fast-deep-equal/es6/react';
+import deepEqual from 'fast-deep-equal';
 
 /**
  * You really should not be using mutating objects but handle them if they are
