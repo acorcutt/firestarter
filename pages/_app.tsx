@@ -10,6 +10,7 @@ import { connectFirestoreEmulator, getFirestore } from 'firebase/firestore';
 import { connectAuthEmulator, getAuth } from 'firebase/auth';
 import { getFunctions, connectFunctionsEmulator } from 'firebase/functions';
 import { getStorage, connectStorageEmulator } from 'firebase/storage';
+import { useRouter } from 'next/router';
 
 const defaultStore = {
   fire: true,
@@ -30,8 +31,9 @@ const services = {
 const firebase = getFirebase(config, services, !!process.env.NEXT_PUBLIC_FIREBASE_EMULATION && settings.emulators);
 
 function MyApp({ Component, pageProps }: AppProps) {
+  const router = useRouter();
   return (
-    <Firestarter firebase={firebase} defaultStore={defaultStore}>
+    <Firestarter firebase={firebase} defaultStore={defaultStore} router={router}>
       <Component {...pageProps} />
     </Firestarter>
   );

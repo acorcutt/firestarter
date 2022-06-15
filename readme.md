@@ -35,15 +35,52 @@ npm i @acorcutt/firestarter
 #### Setup providers with your firebaseConfig and optional emulator settings:
 
 ```js
-import firebaseConfig from '../firebase';
-import settings from './firebase/settings.json';
-import { Firestarter, getFirebase } from '@acorcutt/firestarter';
+import type { AppProps } from 'next/app';
+import Firestarter, { getFirebase } from '@acorcutt/firestarter';
 
-const firebase = getFirebase(firebaseConfig, settings.emulators);
+import config from '../firebase';
+import settings from '../firebase.json';
+import { getApp, initializeApp } from 'firebase/app';
+import { connectFirestoreEmulator, getFirestore } from 'firebase/firestore';
+import { connectAuthEmulator, getAuth } from 'firebase/auth';
+import { getFunctions, connectFunctionsEmulator } from 'firebase/functions';
+import { getStorage, connectStorageEmulator } from 'firebase/storage';
+import { useRouter } from 'next/router';
 
-<Firestarter firebase={firebase}>
-  <App />
-</Firestarter>;
+// Set localStorage defaults
+const defaultStore = {
+  fire: true,
+};
+
+// Inject the firebase servises you neeed
+const services = {
+  getApp,
+  initializeApp,
+  getFirestore,
+  getAuth,
+  getStorage,
+  getFunctions,
+  connectFirestoreEmulator,
+  connectAuthEmulator,
+  connectStorageEmulator,
+  connectFunctionsEmulator,
+};
+
+// Initialize the firebase app with optional emulators
+const firebase = getFirebase(config, services, !!process.env.NEXT_PUBLIC_FIREBASE_EMULATION && settings.emulators);
+
+function MyApp({ Component, pageProps }: AppProps) {
+  // Connect to next routing
+  const router = useRouter();
+
+  return (
+    <Firestarter firebase={firebase} defaultStore={defaultStore} router={router}>
+      <Component {...pageProps} />
+    </Firestarter>
+  );
+}
+
+export default MyApp;
 ```
 
 #### See included `/pages` folder for examples.
@@ -67,7 +104,6 @@ To run the development app setup your `.firebaserc` and `.env.local` from your f
 Copy from your firebase project settings:
 
 ```env
-NEXT_PUBLIC_FIREBASE_NAMESPACE=<your-project-name>
 NEXT_PUBLIC_FIREBASE_API=<apiKey>
 NEXT_PUBLIC_FIREBASE_AUTH=<authDomain>
 NEXT_PUBLIC_FIREBASE_PROJECT=<projectId>
