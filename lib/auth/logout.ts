@@ -1,5 +1,4 @@
 import { signOut } from 'firebase/auth';
-import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import { useAuth, defaultAuthSettings } from '../Auth';
 
@@ -9,8 +8,7 @@ export enum FirestarterLogoutStatus {
 }
 
 export function useLogout() {
-  const { auth, currentUser, settings, connected } = useAuth();
-  const router = useRouter();
+  const { auth, currentUser, settings, connected, router } = useAuth();
 
   useEffect(() => {
     if (auth) {

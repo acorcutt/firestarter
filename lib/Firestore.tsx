@@ -1,4 +1,4 @@
-import { createContext, ReactNode, useContext } from 'react';
+import React, { createContext, ReactNode, useContext } from 'react';
 import { Firestore } from 'firebase/firestore';
 
 const FirestoreContext = createContext<Firestore>(null as unknown as Firestore);

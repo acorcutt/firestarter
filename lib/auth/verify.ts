@@ -2,7 +2,6 @@ import { isSignInWithEmailLink, signInWithEmailLink, User } from 'firebase/auth'
 import { FormEventHandler, useEffect, useState } from 'react';
 import { useAuth, defaultAuthSettings } from '../Auth';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { useRouter } from 'next/router';
 import { useLocalGet, useLocalSet } from '../Store';
 
 export enum FirestarterVerifyStatus {
@@ -30,8 +29,7 @@ export type FirestarterVerifyInputs = {
 };
 
 export function useVerify(): FirestarterVerifyState {
-  const router = useRouter();
-  const { currentUser, connected, settings, auth } = useAuth();
+  const { currentUser, connected, settings, auth, router } = useAuth();
   const [waiting, setWaiting] = useState(true); // Start in waiting state whilst we verify the url
   const getEmailForLogin = useLocalGet('emailForLogin');
   const setEmailForLogin = useLocalSet('emailForLogin');
@@ -93,7 +91,8 @@ export function useVerify(): FirestarterVerifyState {
   // If user is authenticated, redirect to the user page
   useEffect(() => {
     if (currentUser) {
-      router.replace(router.query.redirect ? String(router.query.redirect) : settings.userPath || defaultAuthSettings.userPath);
+      const searchParams = new URLSearchParams(location.search);
+      router.replace(searchParams.has('redirect') ? String(searchParams.get('redirect')) : settings.userPath || defaultAuthSettings.userPath);
     }
   }, [currentUser, router, settings.userPath]);
 

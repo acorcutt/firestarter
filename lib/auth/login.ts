@@ -2,7 +2,6 @@ import { sendSignInLinkToEmail, User } from 'firebase/auth';
 import { FormEventHandler, useEffect, useState } from 'react';
 import { useAuth, defaultAuthSettings } from '../Auth';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { useRouter } from 'next/router';
 import { useLocalSet } from '../Store';
 
 export enum FirestarterLoginStatus {
@@ -28,8 +27,7 @@ export type FirestarterLoginInputs = {
 };
 
 export function useLogin(): FirestarterLoginState {
-  const router = useRouter();
-  const { currentUser, connected, settings, auth } = useAuth();
+  const { currentUser, connected, settings, auth, router } = useAuth();
   const [waiting, setWaiting] = useState(false);
   const setEmailForLogin = useLocalSet('emailForLogin');
 
@@ -44,8 +42,10 @@ export function useLogin(): FirestarterLoginState {
   const onSubmit: SubmitHandler<FirestarterLoginInputs> = async ({ email }) => {
     try {
       if (auth) {
+        const searchParams = new URLSearchParams(location.search);
+
         await sendSignInLinkToEmail(auth, email, {
-          url: `${location.origin}${settings.verifyPath}?redirect=${encodeURIComponent(String(router.query.redirect || settings.userPath))}`,
+          url: `${location.origin}${settings.verifyPath}?redirect=${encodeURIComponent(String(searchParams.get('redirect') || settings.userPath))}`,
           handleCodeInApp: true,
         });
         setWaiting(true);
@@ -61,7 +61,8 @@ export function useLogin(): FirestarterLoginState {
   // If user is authenticated, redirect to the user page
   useEffect(() => {
     if (currentUser) {
-      router.replace(router.query.redirect ? String(router.query.redirect) : settings.userPath || defaultAuthSettings.userPath);
+      const searchParams = new URLSearchParams(location.search);
+      router.replace(searchParams.has('redirect') ? String(searchParams.get('redirect')) : settings.userPath || defaultAuthSettings.userPath);
     }
   }, [currentUser, router, settings.userPath]);
 

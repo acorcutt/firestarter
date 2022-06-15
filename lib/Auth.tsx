@@ -1,10 +1,11 @@
 import mitt from 'mitt';
-import { createContext, ReactNode, useContext } from 'react';
+import React, { createContext, ReactNode, useContext } from 'react';
 import { useEffect, useState } from 'react';
 import { Auth, onAuthStateChanged, updateProfile, User } from 'firebase/auth';
 import deepEqual from 'fast-deep-equal';
 import { UrlObject } from 'url';
-type Url = string | UrlObject;
+
+export type Url = string | UrlObject;
 
 export type FirestarterAuthSettings = {
   loginPath?: Url;
@@ -14,12 +15,17 @@ export type FirestarterAuthSettings = {
   homePath?: Url;
   userPath?: Url;
 };
+export type FirestarterRouterType = {
+  push: (url: Url) => void;
+  replace: (url: Url) => void;
+};
 
 export type FirestarterAuthType = {
   currentUser: User | null;
   connected: boolean;
   auth: Auth | null;
   settings: FirestarterAuthSettings;
+  router: FirestarterRouterType;
 };
 
 export type FirestarterProfileType = {
@@ -40,11 +46,36 @@ type FirestarterProfileEvent = {
   authProfileUpdate: User;
 };
 
-const AuthContext = createContext<FirestarterAuthType>({ currentUser: null, connected: false, auth: null, settings: defaultAuthSettings });
+export const defaultRouter = {
+  push: (url: Url) => {
+    console.error('You must provide a router');
+  },
+  replace: (url: Url) => {
+    console.error('You must provide a router');
+  },
+};
+
+const AuthContext = createContext<FirestarterAuthType>({
+  currentUser: null,
+  connected: false,
+  auth: null,
+  router: defaultRouter,
+  settings: defaultAuthSettings,
+});
 
 const emitter = mitt<FirestarterProfileEvent>();
 
-export function AuthProvider({ auth, settings, children }: { auth: Auth; settings?: FirestarterAuthSettings; children: ReactNode }) {
+export function AuthProvider({
+  auth,
+  settings,
+  router = defaultRouter,
+  children,
+}: {
+  auth: Auth;
+  router?: FirestarterRouterType;
+  settings?: FirestarterAuthSettings;
+  children: ReactNode;
+}) {
   const [currentUser, setCurrentUser] = useState(auth.currentUser);
   const [connected, setConnected] = useState(Boolean(auth.currentUser));
   const [update, setUpdate] = useState({});
@@ -84,7 +115,7 @@ export function AuthProvider({ auth, settings, children }: { auth: Auth; setting
     };
   }, [currentUser]);
 
-  const value = { auth, currentUser: currentUser, connected, settings: { ...defaultAuthSettings, ...settings } };
+  const value = { auth, currentUser: currentUser, connected, router, settings: { ...defaultAuthSettings, ...settings } };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }
