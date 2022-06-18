@@ -29,7 +29,7 @@ export {
   useLocalGet,
   usePageGet,
   useSessionGet,
-  //
+  // Emitters
   emitters as storeEmitters,
 } from './Store';
 
@@ -42,6 +42,7 @@ export { FirestoreProvider, useFirestore } from './Firestore';
 export { StorageProvider, useStorage } from './FirebaseStorage';
 
 export { default as useMemoState } from './firestore/useMemoState';
-export { default as useDocumentSnapshot } from './firestore/useDocumentSnapshot';
-export { default as useQuerySnapshot } from './firestore/useQuerySnapshot';
 export { default as useDocument } from './firestore/useDocument';
+export { default as useDocuments } from './firestore/useDocuments';
+export { default as useDocumentSnapshot } from './firestore/useDocumentSnapshot';
+export { default as useDocumentsSnapshot } from './firestore/useDocumentsSnapshot';

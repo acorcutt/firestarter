@@ -1,6 +1,6 @@
 {
   "name": "@acorcutt/firestarter",
-  "version": "0.0.16",
+  "version": "0.0.17",
   "description": "React firebase components for getting up and running quickly.",
   "source": "lib/index.ts",
   "main": "dist/index.js",

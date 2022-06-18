@@ -1,9 +1,9 @@
 /* eslint-disable @next/next/no-img-element */
 import { collection, doc, DocumentReference, query, refEqual, setDoc, deleteDoc } from 'firebase/firestore';
 import Link from 'next/link';
-import { useEffect, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import { useFirestore } from '../lib/Firestore';
-import { useDocumentSnapshot, useQuerySnapshot } from '../lib';
+import { useDocumentSnapshot, useDocumentsSnapshot } from '../lib';
 import { cx } from '../lib';
 import { useLocalState } from '../lib/Store';
 import { useAuth } from '../lib/Auth';
@@ -45,7 +45,7 @@ function HomePage() {
   const { currentUser } = useAuth();
   // Don't mutate the query every render
   const membersQuery = useMemo(() => query(collection(firestore, 'members')), [firestore]);
-  const membersSnapshot = useQuerySnapshot(membersQuery);
+  const membersSnapshot = useDocumentsSnapshot(membersQuery);
 
   const [selectedMemberRef, setSelectedMemberRef] = useState<DocumentReference | null>(null);
   const selectedMemberSnapshot = useDocumentSnapshot(selectedMemberRef);

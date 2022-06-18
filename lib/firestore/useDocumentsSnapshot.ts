@@ -2,7 +2,7 @@ import { onSnapshot, Query, queryEqual, QuerySnapshot, SnapshotListenOptions } f
 import { useEffect, useState } from 'react';
 import useMemoState from './useMemoState';
 
-export default function useQuerySnapshot(query: Query, options?: SnapshotListenOptions): QuerySnapshot | null {
+export default function useDocumentsSnapshot(query: Query | null, options?: SnapshotListenOptions): QuerySnapshot | null {
   // You really should not be sending in mutating objects but handle them if they are
   const queryMemo: Query = useMemoState(query, queryEqual);
   const optionsMemo: SnapshotListenOptions = useMemoState(options);
