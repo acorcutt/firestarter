@@ -52,7 +52,7 @@ const defaultStore = {
   fire: true,
 };
 
-// Inject the firebase servises you neeed
+// Inject the firebase services you neeed
 const services = {
   getApp,
   initializeApp,
