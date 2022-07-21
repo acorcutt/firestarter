@@ -4,7 +4,7 @@ import { getAuth, connectAuthEmulator } from 'firebase/auth';
 import { getFirestore, connectFirestoreEmulator } from 'firebase/firestore';
 import { getFunctions, connectFunctionsEmulator } from 'firebase/functions';
 import { getStorage, connectStorageEmulator } from 'firebase/storage';
-import { getFirebase } from '@acorcutt/firestarter';
+import { getFirebase } from './lib/index';
 
 console.log('emulation', process.env.NEXT_PUBLIC_FIREBASE_EMULATION);
 
