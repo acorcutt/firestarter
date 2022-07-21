@@ -1,4 +1,14 @@
-const firebaseConfig = {
+import settings from './firebase.json';
+import { getApp, initializeApp } from 'firebase/app';
+import { getAuth, connectAuthEmulator } from 'firebase/auth';
+import { getFirestore, connectFirestoreEmulator } from 'firebase/firestore';
+import { getFunctions, connectFunctionsEmulator } from 'firebase/functions';
+import { getStorage, connectStorageEmulator } from 'firebase/storage';
+import { getFirebase } from '@acorcutt/firestarter';
+
+console.log('emulation', process.env.NEXT_PUBLIC_FIREBASE_EMULATION);
+
+const config = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API,
   authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH,
   projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT,
@@ -7,4 +17,18 @@ const firebaseConfig = {
   appId: process.env.NEXT_PUBLIC_FIREBASE_APP,
 };
 
-export default firebaseConfig;
+const services = {
+  getApp,
+  initializeApp,
+  getFirestore,
+  getAuth,
+  getStorage,
+  getFunctions,
+  connectFirestoreEmulator,
+  connectAuthEmulator,
+  connectStorageEmulator,
+  connectFunctionsEmulator,
+};
+
+const firebase = getFirebase(config, services, !!process.env.NEXT_PUBLIC_FIREBASE_EMULATION && settings.emulators);
+export default firebase;
