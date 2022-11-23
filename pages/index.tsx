@@ -42,7 +42,7 @@ function HomePage() {
   const [animate, setAnimate] = useLocalState('animate');
 
   const firestore = useFirestore();
-  const { currentUser } = useAuth();
+  const { currentUser, claims } = useAuth();
   // Don't mutate the query every render
   const membersQuery = useMemo(() => query(collection(firestore, 'members')), [firestore]);
   const membersSnapshot = useDocumentsSnapshot(membersQuery);
@@ -104,7 +104,11 @@ function HomePage() {
         <h2 className="text-lg font-bold" onClick={() => setSelectedMemberRef(null)}>
           Selected
         </h2>
-        {selectedMemberSnapshot && <div>{selectedMemberSnapshot.get('name')}</div>}
+        {selectedMemberSnapshot ? <div>{selectedMemberSnapshot.get('name')}</div> : <div>None</div>}
+
+        <h2 className="text-lg font-bold">Authentication</h2>
+        <p className="font-bold">{currentUser ? currentUser.email : 'Unauthenticated'}</p>
+        <textarea className="block w-1/2 h-20 border font-mono text-sm p-1" readOnly value={JSON.stringify(claims)} />
       </main>
     </>
   );
